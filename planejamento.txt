@@ -1,0 +1,17 @@
+ANOTAÇÕES/PLANEJAMENTO
+
+- Tarefas:
+   - Definir uma forma de representação de um paralelogramo.
+   - Criar o repositório + documento com anotações e planejamento.
+
+- Ideia central: transformar quadros.
+
+- Comandos importantes:
+   - Combinação de imagens:
+     - "beside": coloca um quadro ao lado de outro.
+     - "below": coloca um quadro embaixo de outro.
+     - "wave": define o tamanho e o formato do quadro.
+
+   - Transformação de imagens:
+     - "flip-vert": quadro de cabeça para baixo.
+     - "flip-horiz": inverte o quadro horizontalmente (espelha).
