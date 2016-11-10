@@ -20,12 +20,23 @@ ANOTAÇÕES/PLANEJAMENTO
 
  - Outras funções:
      - "square-of-four": compõe um quadro com quatro imagens, uma em cada canto ocupando espaço equivalente.
-     - "flipped-pairs": produz um quadro a partir de uma imagem, em que 
+     - "flipped-pairs": recebe uma imagem e produz um quadro a partir dela, em que 
 	   (i) o canto superior esquerdo é a própria imagem, com 1/4 do seu tamanho original;
 	   (ii) o canto superior direito é a imagem de cabeça para baixo ('flip-vert'), também com 1/4 de seu tamanho original;
 	   (iii) o canto inferior esquerdo é igual ao canto superior esquerdo;
 	   (iv) o canto inferior direito é igual ao canto superior direito.
-     - "square-limit": 
+     - "right-split": recebe uma imagem e um número. A partir disso, realiza repetições da imagem em tamanhos reduzidos, sempre para a direita.
+     - "up-split": recebe uma imagem e um número. A partir disso, realiza repetições da imagem em tamanhos reduzidos, sempre para cima.
+     - "corner-split": recepe uma imagem e um número 'n'. Produz um quadro a partir da imagem, em que:
+	   (i) canto superior esquerdo: beside de um 'up-split' com outro 'up-split', ambos da imagem passada;
+	   (ii) canto superior direito: recursividade do "corner-split", recebendo a própria imagem e 'n' reduzido em uma unidade;
+	   (iii) o canto inferior esquerdo é a própria imagem passada;
+	   (iv) canto inferior direito: below de um 'right-split' com outro 'right-split', ambos da imagem passada.
+     - "square-limit": recebe uma imagem e um número 'n'. Produz um quadro a partir dela, em que:
+	   (i) canto superior esquerdo: 'flip-horiz' de 'corner-split' da imagem e de 'n';
+	   (ii) canto superior direito: 'corner-split' da imagem e de 'n';
+	   (iii) o canto inferior esquerdo é o 'flip-vert' do canto superior equerdo;
+	   (iv) canto inferior direito: 'flip-vert' do canto superior direito.
 
 - Exercícios feitos:
    - 2.44
