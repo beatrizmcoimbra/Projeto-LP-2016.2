@@ -11,6 +11,7 @@ ANOTAÇÕES/PLANEJAMENTO
      - "beside": coloca um quadro ao lado de outro.
      - "below": coloca um quadro embaixo de outro.
      - "wave": define o tamanho e o formato do quadro.
+     - "square-of-four": compõe um quadro com quatro imagens, uma em cada canto ocupando espaço equivalente.
 
    - Transformação de imagens:
      - "flip-vert": quadro de cabeça para baixo.
