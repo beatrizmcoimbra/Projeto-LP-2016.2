@@ -18,8 +18,7 @@ ANOTAÇÕES/PLANEJAMENTO
      - "flip-vert": quadro de cabeça para baixo.
      - "flip-horiz": inverte o quadro horizontalmente (espelha).
 
- - Outras funções:
-     - "square-of-four": compõe um quadro com quatro imagens, uma em cada canto ocupando espaço equivalente.
+ - Operações:
      - "flipped-pairs": recebe uma imagem e produz um quadro a partir dela, em que 
 	   (i) o canto superior esquerdo é a própria imagem, com 1/4 do seu tamanho original;
 	   (ii) o canto superior direito é a imagem de cabeça para baixo ('flip-vert'), também com 1/4 de seu tamanho original;
@@ -37,6 +36,13 @@ ANOTAÇÕES/PLANEJAMENTO
 	   (ii) canto superior direito: 'corner-split' da imagem e de 'n';
 	   (iii) o canto inferior esquerdo é o 'flip-vert' do canto superior equerdo;
 	   (iv) canto inferior direito: 'flip-vert' do canto superior direito.
+
+- Higher-order operations
+     - "square-of-four: recebe quatro operações (tl, tr, bl, br) e devolve um procedimento que compõe um quadro com quatro imagens, uma em cada canto ocupando espaço equivalente. Tal procedimento recebe como argumento uma imagem ('painter') e produz um quadro em que:
+	   (i) o canto superior esquerdo será a operação 'tl' aplicada ao painter;
+	   (ii) o canto superior direito será a operação 'tr' aplicada ao painter;
+	   (iii) o canto inferior esquerdo será a operação 'bl' aplicada ao painter;
+	   (iv) o canto inferior direito será a operação 'br' aplicada ao painter.
 
 - Exercícios feitos:
    - 2.44
