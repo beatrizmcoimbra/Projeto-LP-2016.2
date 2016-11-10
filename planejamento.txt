@@ -6,13 +6,27 @@ ANOTAÇÕES/PLANEJAMENTO
 
 - Ideia central: transformar quadros.
 
-- Comandos importantes:
+- Comandos importantes:   
+
+ - Funções primitivas
    - Combinação de imagens:
      - "beside": coloca um quadro ao lado de outro.
      - "below": coloca um quadro embaixo de outro.
      - "wave": define o tamanho e o formato do quadro.
-     - "square-of-four": compõe um quadro com quatro imagens, uma em cada canto ocupando espaço equivalente.
-
+     
    - Transformação de imagens:
      - "flip-vert": quadro de cabeça para baixo.
      - "flip-horiz": inverte o quadro horizontalmente (espelha).
+
+ - Outras funções:
+     - "square-of-four": compõe um quadro com quatro imagens, uma em cada canto ocupando espaço equivalente.
+     - "flipped-pairs": produz um quadro a partir de uma imagem, em que 
+	   (i) o canto superior esquerdo é a própria imagem, com 1/4 do seu tamanho original;
+	   (ii) o canto superior direito é a imagem de cabeça para baixo ('flip-vert'), também com 1/4 de seu tamanho original;
+	   (iii) o canto inferior esquerdo é igual ao canto superior esquerdo;
+	   (iv) o canto inferior direito é igual ao canto superior direito.
+     - "square-limit": 
+
+- Exercícios feitos:
+   - 2.44
+   - 2.45
