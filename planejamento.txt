@@ -44,6 +44,8 @@ ANOTAÇÕES/PLANEJAMENTO
 	   (iii) o canto inferior esquerdo será a operação 'bl' aplicada ao painter;
 	   (iv) o canto inferior direito será a operação 'br' aplicada ao painter.
 
+
 - Exercícios feitos:
    - 2.44
    - 2.45
+   - 2.46
