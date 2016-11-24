@@ -1,7 +1,7 @@
 #lang racket
 
 
-; Primeira implementação
+; Constructor
 
 (define (make-frame origin edge1 edge2)
   (list origin edge1 edge2))
@@ -9,8 +9,8 @@
 ; Seletores
 
 (define (frame-origin frame) (car frame))
-(define (frame-edge1 frame) (car (cdr frame)))
-(define (frame-edge2 frame) (car (cdr (cdr frame))))
+(define (frame-edge1 frame) (cadr frame)))
+(define (frame-edge2 frame) (caddr frame))))
 
 
 

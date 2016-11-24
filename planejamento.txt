@@ -9,14 +9,22 @@ ANOTAÇÕES/PLANEJAMENTO
 - Comandos importantes:   
 
  - Funções primitivas
-   - Combinação de imagens:
-     - "beside": coloca um quadro ao lado de outro.
-     - "below": coloca um quadro embaixo de outro.
-     - "wave": define o tamanho e o formato do quadro.
-     
+
    - Transformação de imagens:
      - "flip-vert": quadro de cabeça para baixo.
      - "flip-horiz": inverte o quadro horizontalmente (espelha).
+
+   - Combinação de imagens:
+     - "beside": coloca um quadro ao lado de outro.
+     - "below": coloca um quadro embaixo de outro.
+     - "painter": recebe um 'frame' e desenha uma determinada imagem redimensionada no 'frame' dado. 
+
+ - 'Painters' primitivo:
+
+     - "wave": um desenho particular, mostrado na figura 2.10 da seção.
+     - "rogers": foto do fundador do MIT, William Barton Rogers.
+
+
 
  - Operações:
      - "flipped-pairs": recebe uma imagem e produz um quadro a partir dela, em que 
@@ -37,15 +45,21 @@ ANOTAÇÕES/PLANEJAMENTO
 	   (iii) o canto inferior esquerdo é o 'flip-vert' do canto superior equerdo;
 	   (iv) canto inferior direito: 'flip-vert' do canto superior direito.
 
-- Higher-order operations
+ - Higher-order operations
      - "square-of-four: recebe quatro operações (tl, tr, bl, br) e devolve um procedimento que compõe um quadro com quatro imagens, uma em cada canto ocupando espaço equivalente. Tal procedimento recebe como argumento uma imagem ('painter') e produz um quadro em que:
 	   (i) o canto superior esquerdo será a operação 'tl' aplicada ao painter;
 	   (ii) o canto superior direito será a operação 'tr' aplicada ao painter;
 	   (iii) o canto inferior esquerdo será a operação 'bl' aplicada ao painter;
 	   (iv) o canto inferior direito será a operação 'br' aplicada ao painter.
 
+     - "split": função genérica para as funções
+
+ - Outras funções:
+
+     - "frame-coord-map": recebe um 'frame' e retorna um procedimento que ajusta uma imagem para caber no dado 'frame'.
 
 - Exercícios feitos:
-   - 2.44
-   - 2.45
+   - 2.44 (up-split)
+   - 2.45 (split
    - 2.46
+   - 2.47
