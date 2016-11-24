@@ -10,5 +10,5 @@
 (define (start-segment segment)
   (car segment))
 
-(define (end-segment segmnet)
+(define (end-segment segment)
   (cdr segment))
