@@ -1,24 +1,27 @@
 #lang racket
 
+(define (make-vect x y)
+   (cons x y))
 
-; Constructor
+(define (xcor-vect vector)
+   (car vector))
 
-(define (make-frame origin edge1 edge2)
-  (list origin edge1 edge2))
-
-; Seletores
-
-(define (frame-origin frame) (car frame))
-(define (frame-edge1 frame) (cadr frame)))
-(define (frame-edge2 frame) (caddr frame))))
+(define (ycor-vect vector)
+   (cdr vector))
 
 
+(define (add-vect vector1 vector2)
+  (make-vect
+   (+ (xcor-vect vector1) (xcor-vect vector2))
+   (+ (ycor-vect vector1) (ycor-vect vector2))))
 
-;Segunda implementação
+(define (sub-vect vector1 vector2)
+  (make-vect
+   (- (xcor-vect vector1) (xcor-vect vector2))
+   (- (ycor-vect vector1) (ycor-vect vector2))))
 
-(define (make-frame2 origin edge1 edge2)
-  (cons origin (cons edge1 edge2)))
-
-(define (frame2-origin frame) (car frame))
-(define (frame2-edge1 frame) (car(cdr frame)))
-(define (frame2-edge2 frame) (cdr (cdr frame)))
+(define (scale-vect vector number)
+  (make-vect
+   (* number (xcor-vect vector))
+   (* number (ycor-vect vector))))
+  
