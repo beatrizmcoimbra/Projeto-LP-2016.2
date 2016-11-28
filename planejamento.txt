@@ -63,3 +63,5 @@ ANOTAÇÕES/PLANEJAMENTO
    - 2.45 (split
    - 2.46
    - 2.47
+   - 2.48
+   - 2.49
