@@ -9,7 +9,9 @@ ANOTAÇÕES/PLANEJAMENTO
 - Comandos importantes:   
 
  - Funções primitivas
-
+ 
+  - "transform-painter": recebe um painter e três vetores (origin, corner1 e corner2). Retorna um procedimento que, por sua vez, recebe um frame. 
+  
    - Transformação de imagens:
      - "flip-vert": quadro de cabeça para baixo.
      - "flip-horiz": inverte o quadro horizontalmente (espelha).
@@ -54,13 +56,15 @@ ANOTAÇÕES/PLANEJAMENTO
 
      - "split": função genérica para as funções
 
- - Outras funções:
+ - Funções de transformações lineares:
 
-     - "frame-coord-map": recebe um 'frame' e retorna um procedimento que ajusta uma imagem para caber no dado 'frame'.
+     - "segments->painter": recebe uma lista de segmentos e retorna um procedimento. Tal procedimento recebe um frame e ajusta os segmentos (espécie de domínio da transformação) dentro do frame passado (imagem). 
+     - "frame-coord-map": recebe um 'frame' e retorna um procedimento. Tal procedimento recebe um vetor e a sua saída será o vetor diagonal do frame.
+     
 
 - Exercícios feitos:
-   - 2.44 (up-split)
-   - 2.45 (split
+   - 2.44 
+   - 2.45
    - 2.46
    - 2.47
    - 2.48
