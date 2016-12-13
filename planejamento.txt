@@ -69,3 +69,4 @@ ANOTAÇÕES/PLANEJAMENTO
    - 2.47
    - 2.48
    - 2.49
+   - 2.50
