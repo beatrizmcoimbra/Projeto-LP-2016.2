@@ -21,7 +21,7 @@ ANOTAÇÕES/PLANEJAMENTO
      
    - Combinação de imagens:
      - "beside": coloca um quadro ao lado de outro.
-     - "below": coloca um quadro embaixo de outro (pode ser implementado através de rotações ou da ideia da função beside)
+     - "below": coloca um quadro embaixo de outro.
      - "painter": recebe um 'frame' e desenha uma determinada imagem redimensionada no 'frame' dado. 
 
  - 'Painters' primitivo:
