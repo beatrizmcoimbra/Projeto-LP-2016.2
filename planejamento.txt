@@ -1,9 +1,5 @@
 ANOTAÇÕES/PLANEJAMENTO
 
-- Tarefas:
-   - Definir uma forma de representação de um paralelogramo.
-   - Criar o repositório + documento com anotações e planejamento.
-
 - Ideia central: transformar quadros.
 
 - Comandos importantes:   
