@@ -20,12 +20,6 @@ ANOTAÇÕES/PLANEJAMENTO
      - "below": coloca um quadro embaixo de outro.
      - "painter": recebe um 'frame' e desenha uma determinada imagem redimensionada no 'frame' dado. 
 
- - 'Painters' primitivo:
-
-     - "wave": um desenho particular, mostrado na figura 2.10 da seção.
-     - "rogers": foto do fundador do MIT, William Barton Rogers.
-
-
 
  - Operações:
      - "flipped-pairs": recebe uma imagem e produz um quadro a partir dela, em que 
