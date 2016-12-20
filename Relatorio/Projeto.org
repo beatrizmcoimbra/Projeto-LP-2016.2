@@ -263,6 +263,7 @@ Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:
  (paint (im:square-limit einstein 3))
 #+END_SRC
 
+
 * Próximos passos
 
 Para facilitar a visualização dos outputs dos nossos códigos, recorremos ao pacote sicp-pict, que nos permite manipular imagens mais facilmente. Tal pacote possui certas imagens pré-definidas para serem manipuladas – uma foto do cientista Albert Einstein e um “degradê” cinza. Uma evolução para o projeto seria tornar possível fazer upload de qualquer imagem desejada para criar os tais padrões.
