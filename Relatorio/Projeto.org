@@ -255,6 +255,17 @@ Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:
 (paint (im:square-limit einstein 3))
 #+END_SRC
 
+* Avaliação dos integrantes
+
+*** Alifer Sales
+
+*** Beatriz Coimbra
+
+Acreditamos que Beatriz tenha participado ativamente do projeto. Sempre se mostrou disponível para a realização das tarefas e contribuiu para as discussões acerca do tema que estávamos estudando. Beatriz se dedicou inteiramente ao trabalho e fez o máximo para que este fosse finalizado da melhor maneira possível.
+
+Portanto, acreditamos que Beatriz mereça nota 9,5. Ainda que tenhamos aprendido muito e nos dedicado inteiramente ao trabalho, sempre há o que melhorar e, por ter faltado um exercício para completarmos a seção, o projeto não ficou completo. 
+
+
 
 
 
