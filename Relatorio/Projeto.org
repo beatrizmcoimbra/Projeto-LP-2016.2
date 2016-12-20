@@ -53,7 +53,7 @@ Dessa forma, seguem todas as funções implementadas:
 * II. Como utilizar o pacote?
 
 *** Importante:
-- Para utilizar os códigos, é necessário instalar o pacote *sicp-pict*. Link de instalação: git://github.com/sicp-lang/sicp . Após instalado, deve ser utilizado o arquivo [[file:images-manipulator.rkt]], onde encontra-se as funções que serão usadas.
+- Para utilizar os códigos, é necessário instalar o pacote *sicp-pict*. Link de instalação: git://github.com/sicp-lang/sicp . Após instalado, deve ser utilizado o arquivo [[file:images-manipulator.rkt]], onde encontram-se as funções que serão usadas.
 - As funções implementadas no projeto são precedidas do prefixo =im:=.
 - Um =painter= é um =<procedure>= que recebe um =frame= como argumento.
 - Para visualizar um =painter=, deve-se utilizar a função =paint=:
@@ -246,12 +246,12 @@ Ainda se tratando em padrões recursirvos, a função =im:square-pattern= permit
 #+BEGIN_SRC scheme
  (paint (im:square-pattern einstein 2))
 #+END_SRC
-[[file:square-pattern-2]]
+[[file:square-pattern-2.PNG]]
 
 #+BEGIN_SRC scheme
  (paint (im:square-pattern einstein 3))
 #+END_SRC
-[[file:square-pattern-3]]
+[[file:square-pattern-3.PNG]]
 
 *** =im:square-of-four=
 - input: =(im:square-of-four tl tr bl br)=
