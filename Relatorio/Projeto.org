@@ -265,6 +265,13 @@ Acreditamos que Beatriz tenha participado ativamente do projeto. Sempre se mostr
 
 Portanto, acreditamos que Beatriz mereça nota 9,5. Ainda que tenhamos aprendido muito e nos dedicado inteiramente ao trabalho, sempre há o que melhorar e, por ter faltado um exercício para completarmos a seção, o projeto não ficou completo. 
 
+*** Gustavo Cavaliere
+
+Acreditamos que o Gustavo, apesar de ter entrado em um projeto já iniciado, tenha contribuído de maneira proativa. Suas contribuições principais ficaram na parte de elaboração de algumas das funções low-level  e, sobretudo, da organização final do trabalho.
+
+Atribuímos ao Gustavo a nota 9,0. Não pudemos atribuir-lhe nota maior que os demais componentes, que já se encontravam trabalhando no projeto. Atribuímos essa nota também devido ao fato de suas contribuições terem ocorrido majoritariamente nas reuniões e discussões, tendo uma participação menor na composição do repositório, como tinha sido acordado.
+
+
 
 
 
