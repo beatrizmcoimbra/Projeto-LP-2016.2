@@ -177,6 +177,16 @@
               (corner (im:corner-split painter (- n 1))))
           (im:beside (im:below painter top-left)
                      (im:below bottom-right corner))))))
+                     
+(define (im:square-pattern painter n)
+  (if (<= n 1)
+      painter
+      (let ((next (im:square-pattern painter (- n 1))))
+        (lambda (frame)
+          ((im:shrink-tl next) frame)
+          ((im:shrink-tr next) frame)
+          ((im:shrink-bl netx) frame)
+          ((im:shrink-br next) frame)))))
 
 (define (im:square-of-four tl tr
                            bl br)
