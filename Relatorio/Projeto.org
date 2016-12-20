@@ -5,10 +5,52 @@ Projeto desenvolvido pelos alunos Alifer Sales, Beatriz Coimbra e Gustavo Cavali
 
 * Introdução
 
-Nosso trabalho consistiu no estudo e na implementação dos códigos sugeridos pela seção 2.2.4 do livro /Structure and Interpretation of Computer Programs/, intitulada /A Picture Language/. 
+Nosso trabalho consistiu no estudo e na implementação de um pacote de manipulação de imagens abordado na [[https://mitpress.mit.edu/sicp/full-text/book/book-Z-H-15.html#%_sec_2.2.4][seção 2.2.4 do livro Structure and Interpretation of Computer Programs, intitulada A Picture Language.]] 
 
-Essa seção apresenta uma linguagem de representação e criação de imagens, ilustrando o poder da abstração – assunto muito abordado ao longo do livro – e, também, explorando procedimentos de ordem mais alta. Uma motivação para a criação de tal linguagem foi o desejo de tornar mais fácil experimentar padrões, como o da figura a seguir.
+Essa seção apresenta uma linguagem de representação e manipulação de imagens, ilustrando o poder da abstração – assunto muito abordado ao longo do livro. A base do pacote são transformações e combinações de imagens, colocando na prática uma poderosa ferramenta da Álgebra Linear: As transformações lineares. 
 
+O objetivo deste relatório não é reexplicar os conceitos que o livro traz. Sempre de forma objetiva, será abordado, num primeiro momento, (I) o que foi feito durante o projeto. Num segundo momento, (II) é criado uma espécie de "tutorial" que guia a utilização do pacote. E por fim, (III) o que ainda pode ser feito no futuro para o aperfeiçoamento do pacote e (IV) a avaliação dos integrantes.
+
+* I. Implementações
+
+Ao tratar do tema, o livro realiza diversas implementações de códigos. Mas o objetivo do projeto não era apenas reproduzir os códigos do livro, mas também, implementar novas funções, seja induzido pelos exercícios, seja por conta própria. 
+
+É importante ressaltar que as funções estão explicadas no arquivo COMO UTILIZAR
+
+Dessa forma, seguem todas as funções implementadas:
+
+*** Implementações do livro
+- =im:transform-painter= Realiza a trasformação linear desejada.
+- =im:flip-vert= Reflete a imagem verticalmente.
+- =im:rotate-90= Rotaciona a imagem em 90 graus.
+- =im:beside= Combina duas imagens, colocando uma ao lado da outra.
+- =im:right-split= Padrão recursivo de imagens.
+- =im:corner-split= Padrão recursivo de imagens.
+- =im:square-of-four= High-order que possibilita a geração de padrões.
+- =im:flipped-pairs= Mosaico com um padrão de imagens.
+- =im:square-limit= Mosaico com um padrão de imagens.
+
+
+*** Implementações propostas através dos exercícios
+- =im:flip-horiz= Reflete a imagem horizontalmente.
+- =im:rotate-180= Rotaciona a imagem em 180 graus.
+- =im:rotate-270= Rotaciona a imagem em 270 graus.
+- =im:below= Combina duas imagens, colocando uma encima da outra.
+- =im:up-split= produz repetições exponenciais da imagem passada, inserindo tais repetições por cima.
+- Abstrações: [[https://github.com/beatrizmcoimbra/Projeto-LP-2016.2/blob/master/%5BABSTRACTION%5D%20vectors.rkt][Vetores]], [[https://github.com/beatrizmcoimbra/Projeto-LP-2016.2/blob/master/%5BABSTRACTION%5D%20frames.rkt][Frames]] e [[https://github.com/beatrizmcoimbra/Projeto-LP-2016.2/blob/master/%5BABSTRACTION%5D%20segments.rkt][Segmentos]]
+
+*** Implementações por conta própria
+- =im:shrink-tl= Encolhe a imagem em 1/4, posicionando-a no canto superior esquerdo.
+- =im:shrink-tr= Encolhe a imagem em 1/4, posicionando-a no canto superior direito.
+- =im:shrink-bl= Encolhe a imagem em 1/4, posicionando-a no canto inferior esquerdo.
+- =im:shrink-br= Encolhe a imagem em 1/4, posicionando-a no canto inferior direito.
+- =im:beside3= Combina três imagens, colocando uma ao lado da outra.
+- =im:below3= Combina três imagens, colocando uma encima da outra.
+- =im:xadrez-pattern= Cria uma malha em padrão xadrez com a imagem passada.
+- =im:square-pattern= Cria uma malha quadriculada com a imagem passada.
+- =im:square-of-nine= High-order que possibilita a geração de padrões.
+
+* II. Como utilizar o pacote?
 
 *** Importante:
 - Para utilizar os códigos, é necessário instalar o pacote *sicp-pict*. Link de instalação: git://github.com/sicp-lang/sicp . Após instalado, deve ser utilizado o arquivo [[file:images-manipulator.rkt]], onde encontra-se as funções que serão usadas.
@@ -28,15 +70,15 @@ Essa seção apresenta uma linguagem de representação e criação de imagens, 
 #+END_SRC
 
 
-* Transformando imagens
+** Transformando imagens
 
-** =im:transform-painter=
+*** =im:transform-painter=
 - input: =(im:transform-painter painter origin corner1 corner2)=
 - output: =painter=
 
 Esta função é fundamental para o pacote. É através dela que as transformações lineares acontecem. Para utiliza-la, o usuário deve passar um painter e três vetores como argumentos. Os vetores =origin=, =corner1= e =corner2= indicam, respectivamente, onde o ponto inferior esquerdo, o ponto inferior direito e o ponto superior esquerdo do =painter ficará após a transformação.
 
-*** Exemplo:
+**** Exemplo:
 
 #+BEGIN_SRC scheme
  (im:transform-painter einstein (make-vect 1.0 0.0) (make-vect 0.0 0.0) (make-vect 1.0 1.0))
@@ -55,7 +97,7 @@ Envelopando o =im:tranform-painter=, foram criadas algumas transformações elem
 - =(im:shrink-bl painter)= Encolhe o painter em 1/4, posicionando-o no canto inferior esquerdo.
 - =(im:shrink-br painter)= Encolhe o painter em 1/4, posicionando-o no canto inferior direito.
 
-*** Utilize!
+**** Utilize!
 
 #+BEGIN_SRC scheme
  (paint (im:transform-painter einstein (make-vect 0.2 0.0) (make-vect 0.6 0.0) (make-vect 0.6 0.8)))
@@ -77,11 +119,11 @@ Envelopando o =im:tranform-painter=, foram criadas algumas transformações elem
  (paint (im:shrink-bl einstein))
 #+END_SRC
 
-* Combinando imagens
+** Combinando imagens
 
 As combinações de imagens são realizadas através da criação de um painter a partir da união de diversas transformações.
 
-** =im:beside=
+*** =im:beside=
 - input: =(im:beside painter1 painter2)=
 - output: =painter=
 
@@ -117,7 +159,7 @@ Com a mesma lógica, são implementados mais combinadores:
 - =(im:below painter1 painter2)= Combina 2 painters, colocando-os um encima do outro.
 - =(im:below3 painter1 painter2 painter3)= Combina 3 painters, colocando-os um encima do outro.
 
-*** Utilize!
+**** Utilize!
 
 #+BEGIN_SRC scheme
  (paint (lambda (frame)
@@ -131,11 +173,21 @@ Com a mesma lógica, são implementados mais combinadores:
                    (im:rotate-180 einstein)))
 #+END_SRC
 
-* Padrões
+** Padrões
 
-A base do pacote já está pronta. Ao combinar os transformadores e os combinadores, é possível criar alguns padrões de imagens.
+A base do pacote já está pronta. Ao combinar os transformadores e os combinadores, é possível criar alguns padrões de imagens. Como, por exemplo, o =im:xadrez-pattern=:
 
-** =im:right-split=
+#+BEGIN_SRC scheme
+ (define (im:xadrez-pattern painter) 
+   (let ((pattern
+         (lambda (frame)
+           ((im:shrink-tl painter) frame)
+           ((im:shrink-br painter) frame))))
+     (im:below (im:beside pattern pattern)
+               (im:beside pattern pattern))))
+#+END_SRC
+
+*** =im:right-split=
 - input: =(im:beside painter1 painter2)=
 - output: =painter=
 
@@ -178,12 +230,30 @@ Com esses dois padrões, pode-se ir mais além com o =im:corner-split=. Veja a s
                       (im:below bottom-right corner))))))
 #+END_SRC
 
+**** Exemplo
+
 #+BEGIN_SRC scheme
  (paint (im:corner-split einstein 2))
 #+END_SRC
 [[file:corner-split-exemple.PNG]]
 
-** =im:square-of-four=
+*** =im:square-pattern=
+- input: =(im:square-pattern painter n)=
+- output: =painter=.
+
+Ainda se tratando em padrões recursirvos, a função =im:square-pattern= permite a criação de uma malha quadrilhada com a imagem passada. O argumento =n= é refente ao quanto será repetido. O número de repetições cresce exponencialmente conforme =n= aumenta. Seguem dois exemplos:
+
+#+BEGIN_SRC scheme
+ (paint (im:square-pattern einstein 2))
+#+END_SRC
+[[file:square-pattern-2]]
+
+#+BEGIN_SRC scheme
+ (paint (im:square-pattern einstein 3))
+#+END_SRC
+[[file:square-pattern-3]]
+
+*** =im:square-of-four=
 - input: =(im:square-of-four tl tr bl br)=
 - output: =<procedure>= que recebe um =painter= como argumento.
 
@@ -231,7 +301,19 @@ Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:
 - input: =(im:square-of-nine tl tc tr ml mc mr bl bc br)=
 [[file:square-of-nine-grade.PNG]]
 
-*** Utilize!
+**** Utilize!
+
+#+BEGIN_SRC scheme
+ (paint (im:xadrez-pattern einstein))
+#+END_SRC
+
+#+BEGIN_SRC scheme
+ (paint ((im:square-of-four
+            im:xadrez-pattern
+            im:xadrez-pattern
+            im:xadrez-pattern
+            im:xadrez-pattern) einstein))
+#+END_SRC
 
 #+BEGIN_SRC scheme
  (paint ((im:square-of-four
@@ -260,18 +342,17 @@ Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:
 #+END_SRC
 
 #+BEGIN_SRC scheme
- (paint (im:square-limit einstein 3))
+ (paint (im:square-limit diagonal-shading 3))
 #+END_SRC
 
 
-* Próximos passos
+* III. Próximos passos
 
-Para facilitar a visualização dos /outputs/ dos nossos códigos, recorremos ao pacote sicp-pict, que nos permite manipular imagens mais facilmente. Tal pacote possui certas imagens pré-definidas para serem manipuladas – uma foto do cientista Albert Einstein e um “degradê” cinza. Uma evolução para o projeto seria tornar possível fazer upload de qualquer imagem desejada para criar os tais padrões.
+Para facilitar a visualização dos outputs dos nossos códigos, recorremos ao pacote sicp-pict, que nos permite manipular imagens mais facilmente. Tal pacote possui certas imagens pré-definidas para serem manipuladas – uma foto do cientista Albert Einstein e um “degradê” cinza. Uma avanço ideal para o projeto é possibilitar que o usário tenha a liberdade de inserir imagens à escolha dele para que essas sejam manipuladas no pacote. Infelizmente não pudemos focar nisso ainda, mas existe a pretensão de conseguir tal implementação no futuro.
 
-Além disso, em nosso projeto, sempre partimos da premissa de que as imagens com as quais trabalhamos estão contidas em um quadrado unitário. Poder escolher seus tamanhos também seria interessante. 
+Outro avanço interessante é permitir que o usuário possa escolher a dimensão da imagem que a função =paint= retorna. Atualmente esse tamanho é fixo, o que impossibilita a visualição detalhada de algumas transformações e combinações. Isto é, portanto, mais uma implementação futura do projeto.
 
-
-* Avaliação dos integrantes
+*IV. Avaliação dos integrantes
 
 *** Alifer Sales
 
@@ -283,7 +364,7 @@ Portanto, acreditamos que Beatriz mereça nota 9,5. Ainda que tenhamos aprendido
 
 *** Gustavo Cavaliere
 
-Acreditamos que o Gustavo, apesar de ter entrado em um projeto já iniciado, tenha contribuído de maneira proativa. Suas contribuições principais ficaram na parte de elaboração de algumas das funções /low-level/  e, sobretudo, da organização final do trabalho.
+Acreditamos que o Gustavo, apesar de ter entrado em um projeto já iniciado, tenha contribuído de maneira proativa. Suas contribuições principais ficaram na parte de elaboração de algumas das funções low-level  e, sobretudo, da organização final do trabalho.
 
 Atribuímos ao Gustavo a nota 9,0. Não pudemos atribuir-lhe nota maior que os demais componentes, que já se encontravam trabalhando no projeto. Atribuímos essa nota também devido ao fato de suas contribuições terem ocorrido majoritariamente nas reuniões e discussões, tendo uma participação menor na composição do repositório.
 
