@@ -5,7 +5,9 @@ Projeto desenvolvido pelos alunos Alifer Sales, Beatriz Coimbra e Gustavo Cavali
 
 * Introdução
 
-bla bla bla...
+  Nosso trabalho consistiu no estudo e na implementação dos códigos sugeridos pela seção 2.2.4 do livro Structure and Interpretation of Computer Programs, intitulada A Picture Language. 
+  Essa seção apresenta uma linguagem de representação e criação de imagens, ilustrando o poder da abstração – assunto muito abordado ao longo do livro – e, também, explorando procedimentos de ordem mais alta. Uma motivação para a criação de tal linguagem foi o desejo de tornar mais fácil experimentar padrões, como o da figura a seguir.
+
 
 *** Importante:
 - Para utilizar os códigos, é necessário instalar o pacote *sicp*. Link de instalação: git://github.com/sicp-lang/sicp . Após instalado, deve ser utilizado o arquivo [[file:images-manipulator.rkt]], onde encontra-se as funções que serão usadas.
