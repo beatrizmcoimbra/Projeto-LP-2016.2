@@ -1,5 +1,4 @@
 #lang racket
-(require racket/trace)
 (require sicp-pict)
 
 ; Image Package (im)
