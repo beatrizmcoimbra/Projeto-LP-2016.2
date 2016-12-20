@@ -97,7 +97,7 @@ Envelopando o =im:tranform-painter=, foram criadas algumas transformações elem
 - =(im:shrink-bl painter)= Encolhe o painter em 1/4, posicionando-o no canto inferior esquerdo.
 - =(im:shrink-br painter)= Encolhe o painter em 1/4, posicionando-o no canto inferior direito.
 
-**** Utilize!
+*** Utilize!
 
 #+BEGIN_SRC scheme
  (paint (im:transform-painter einstein (make-vect 0.2 0.0) (make-vect 0.6 0.0) (make-vect 0.6 0.8)))
@@ -159,7 +159,7 @@ Com a mesma lógica, são implementados mais combinadores:
 - =(im:below painter1 painter2)= Combina 2 painters, colocando-os um encima do outro.
 - =(im:below3 painter1 painter2 painter3)= Combina 3 painters, colocando-os um encima do outro.
 
-**** Utilize!
+*** Utilize!
 
 #+BEGIN_SRC scheme
  (paint (lambda (frame)
@@ -301,7 +301,7 @@ Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:
 - input: =(im:square-of-nine tl tc tr ml mc mr bl bc br)=
 [[file:square-of-nine-grade.PNG]]
 
-**** Utilize!
+*** Utilize!
 
 #+BEGIN_SRC scheme
  (paint (im:xadrez-pattern einstein))
