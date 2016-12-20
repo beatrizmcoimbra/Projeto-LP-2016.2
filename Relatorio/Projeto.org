@@ -263,6 +263,13 @@ Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:
  (paint (im:square-limit einstein 3))
 #+END_SRC
 
+* Próximos passos
+
+Para facilitar a visualização dos outputs dos nossos códigos, recorremos ao pacote sicp-pict, que nos permite manipular imagens mais facilmente. Tal pacote possui certas imagens pré-definidas para serem manipuladas – uma foto do cientista Albert Einstein e um “degradê” cinza. Uma evolução para o projeto seria tornar possível fazer upload de qualquer imagem desejada para criar os tais padrões.
+
+Além disso, em nosso projeto, sempre partimos da premissa de que as imagens com as quais trabalhamos estão contidas em um quadrado unitário. Poder escolher seus tamanhos também seria interessante. 
+
+
 * Avaliação dos integrantes
 
 *** Alifer Sales
@@ -273,13 +280,9 @@ Acreditamos que Beatriz tenha participado ativamente do projeto. Sempre se mostr
 
 Portanto, acreditamos que Beatriz mereça nota 9,5. Ainda que tenhamos aprendido muito e nos dedicado inteiramente ao trabalho, sempre há o que melhorar e, por ter faltado um exercício para completarmos a seção, o projeto não ficou completo. 
 
+*** Gustavo Cavaliere
 
+Acreditamos que o Gustavo, apesar de ter entrado em um projeto já iniciado, tenha contribuído de maneira proativa. Suas contribuições principais ficaram na parte de elaboração de algumas das funções low-level  e, sobretudo, da organização final do trabalho.
 
-
-
-
-
-
-
-
+Atribuímos ao Gustavo a nota 9,0. Não pudemos atribuir-lhe nota maior que os demais componentes, que já se encontravam trabalhando no projeto. Atribuímos essa nota também devido ao fato de suas contribuições terem ocorrido majoritariamente nas reuniões e discussões, tendo uma participação menor na composição do repositório.
 
