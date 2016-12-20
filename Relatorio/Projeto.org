@@ -11,14 +11,22 @@ Essa seção apresenta uma linguagem de representação e criação de imagens, 
 
 
 *** Importante:
-- Para utilizar os códigos, é necessário instalar o pacote *sicp*. Link de instalação: git://github.com/sicp-lang/sicp . Após instalado, deve ser utilizado o arquivo [[file:images-manipulator.rkt]], onde encontra-se as funções que serão usadas.
+- Para utilizar os códigos, é necessário instalar o pacote *sicp-pict*. Link de instalação: git://github.com/sicp-lang/sicp . Após instalado, deve ser utilizado o arquivo [[file:images-manipulator.rkt]], onde encontra-se as funções que serão usadas.
 - As funções implementadas no projeto são precedidas do prefixo =im:=.
 - Um =painter= é um =<procedure>= que recebe um =frame= como argumento.
 - Para visualizar um =painter=, deve-se utilizar a função =paint=:
 
 #+BEGIN_SRC scheme
-(paint painter1 painter2 ...)
+ (paint painter)
 #+END_SRC
+
+- Existem dois painters que o pacote =sicp-pict= oferece e que podem ser utilizados. São eles: =einstein= e =diagonal-shading=. Veja-os utilizando os códigos abaixo:
+
+#+BEGIN_SRC scheme
+ (paint einstein)
+ (paint diagonal-shading)
+#+END_SRC
+
 
 * Transformando imagens
 
@@ -31,7 +39,7 @@ Esta função é fundamental para o pacote. É através dela que as transformaç
 *** Exemplo:
 
 #+BEGIN_SRC scheme
-(im:transform-painter einstein (make-vect 1.0 0.0) (make-vect 0.0 0.0) (make-vect 1.0 1.0))
+ (im:transform-painter einstein (make-vect 1.0 0.0) (make-vect 0.0 0.0) (make-vect 1.0 1.0))
 #+END_SRC
 [[file:transform-painter-exemple.png]] 
 
@@ -50,23 +58,23 @@ Envelopando o =im:tranform-painter=, foram criadas algumas transformações elem
 *** Utilize!
 
 #+BEGIN_SRC scheme
-(paint (im:transform-painter einstein (make-vect 0.2 0.0) (make-vect 0.6 0.0) (make-vect 0.6 0.8)))
+ (paint (im:transform-painter einstein (make-vect 0.2 0.0) (make-vect 0.6 0.0) (make-vect 0.6 0.8)))
 #+END_SRC
 
 #+BEGIN_SRC scheme
-(paint (im:flip-horiz einstein))
+ (paint (im:flip-horiz einstein))
 #+END_SRC
 
 #+BEGIN_SRC scheme
-(paint (im:rotate-180 einstein))
+ (paint (im:rotate-180 einstein))
 #+END_SRC
 
 #+BEGIN_SRC scheme
-(paint (im:shrink-tr einstein))
+ (paint (im:shrink-tr einstein))
 #+END_SRC
 
 #+BEGIN_SRC scheme
-(paint (im:shrink-bl einstein))
+ (paint (im:shrink-bl einstein))
 #+END_SRC
 
 * Combinando imagens
@@ -87,20 +95,20 @@ O combinador =beside= recebe dois painter como argumentos, =painter1= e =painter
 Dessa forma, segue o combinador =im:beside=:
 
 #+BEGIN_SRC scheme
-(define (im:beside painter1 painter2)
-  (let ((paint-left
-         (im:transform-painter painter1
-                               (make-vect 0.0 0.0)
-                               (make-vect 0.5 0.0)
-                               (make-vect 0.0 1.0)))
-        (paint-right
-         (im:transform-painter painter2
-                               (make-vect 0.5 0.0)
-                               (make-vect 1.0 0.0)
-                               (make-vect 0.5 1.0))))
-    (lambda (frame)
-      (paint-left frame)
-      (paint-right frame))))
+ (define (im:beside painter1 painter2)
+   (let ((paint-left
+          (im:transform-painter painter1
+                                (make-vect 0.0 0.0)
+                                (make-vect 0.5 0.0)
+                                (make-vect 0.0 1.0)))
+         (paint-right
+          (im:transform-painter painter2
+                                (make-vect 0.5 0.0)
+                                (make-vect 1.0 0.0)
+                                (make-vect 0.5 1.0))))
+     (lambda (frame)
+       (paint-left frame)
+       (paint-right frame))))
 #+END_SRC
 
 Com a mesma lógica, são implementados mais combinadores:
@@ -112,15 +120,15 @@ Com a mesma lógica, são implementados mais combinadores:
 *** Utilize!
 
 #+BEGIN_SRC scheme
-(paint (lambda (frame)
-           ((im:shrink-br einstein) frame)
-           ((im:shrink-tl einstein) frame)))
+ (paint (lambda (frame)
+            ((im:shrink-br einstein) frame)
+            ((im:shrink-tl einstein) frame)))
 #+END_SRC
 
 #+BEGIN_SRC scheme
-(paint (im:below3 einstein
-                  (im:rotate-90 einstein)
-                  (im:rotate-180 einstein)))
+ (paint (im:below3 einstein
+                   (im:rotate-90 einstein)
+                   (im:rotate-180 einstein)))
 #+END_SRC
 
 * Padrões
@@ -134,44 +142,44 @@ A base do pacote já está pronta. Ao combinar os transformadores e os combinado
 A função =im:right-split= produz um padrão de forma recursiva. A ideia é utilizar o =im:below= dentro do =im:beside=, produzindo padrões como na imagem abaixo, onde o segundo elemento é a quantidade de recursões que ocorrerem:
 
 #+BEGIN_SRC scheme
-(paint (im:right-split einstein 2))
+ (paint (im:right-split einstein 2))
 #+END_SRC
 [[file:right-split-exemple.PNG]]
 
 Confira a implementação:
 
 #+BEGIN_SRC scheme
-(define (im:right-split painter n)
-  (if (= n 0)
-      painter
-      (let ((smaller (im:right-split painter (- n 1))))
-        (im:beside painter (im:below smaller smaller)))))
+ (define (im:right-split painter n)
+   (if (= n 0)
+       painter
+       (let ((smaller (im:right-split painter (- n 1))))
+         (im:beside painter (im:below smaller smaller)))))
 #+END_SRC
 
 Análogamente, é possível construir um padrão parecido, chamado =im:up-split=:
 
 #+BEGIN_SRC scheme
-(paint (im:up-split einstein 2))
+ (paint (im:up-split einstein 2))
 #+END_SRC
 [[file:up-split-exemple.PNG]]
 
 Com esses dois padrões, pode-se ir mais além com o =im:corner-split=. Veja a sua implementação e um exemplo:
 
 #+BEGIN_SRC scheme
-(define (im:corner-split painter n)
-  (if (= n 0)
-      painter
-      (let ((up (im:up-split painter (- n 1)))
-            (right (im:right-split painter (- n 1))))
-        (let ((top-left (im:beside up up))
-              (bottom-right (im:below right right))
-              (corner (im:corner-split painter (- n 1))))
-          (im:beside (im:below painter top-left)
-                     (im:below bottom-right corner))))))
+ (define (im:corner-split painter n)
+   (if (= n 0)
+       painter
+       (let ((up (im:up-split painter (- n 1)))
+             (right (im:right-split painter (- n 1))))
+         (let ((top-left (im:beside up up))
+               (bottom-right (im:below right right))
+               (corner (im:corner-split painter (- n 1))))
+           (im:beside (im:below painter top-left)
+                      (im:below bottom-right corner))))))
 #+END_SRC
 
 #+BEGIN_SRC scheme
-(paint (im:corner-split einstein 2))
+ (paint (im:corner-split einstein 2))
 #+END_SRC
 [[file:corner-split-exemple.PNG]]
 
@@ -198,24 +206,24 @@ A ideia é produzir um quadro dividido em quatro cantos iguais, onde é possíve
 Para isso, ele pode utilizar o =im:square-of-four= da seguinte forma:
 
 #+BEGIN_SRC scheme
-(paint ((im:square-of-four identity im:flip-horiz
-                           im:flip-vert im:rotate-180) einstein))
+ (paint ((im:square-of-four identity im:flip-horiz
+                            im:flip-vert im:rotate-180) einstein))
 #+END_SRC
 [[file:square-of-four-exemple.PNG]]
 
 Envolopando o =im:square-of-four=, é possível chegar em alguns padrões interessantes:
 
 #+BEGIN_SRC scheme
-(define (im:flipped-pairs painter)
-  ((im:square-of-four identity im:flip-vert
-                      identity im:flip-vert) painter))
+ (define (im:flipped-pairs painter)
+   ((im:square-of-four identity im:flip-vert
+                       identity im:flip-vert) painter))
 #+END_SRC
 
 #+BEGIN_SRC scheme
-(define (im:square-limit painter n)
-  (let ((corner-base (im:corner-split painter n)))
-    ((im:square-of-four im:flip-horiz identity
-                        im:rotate-180 im:flip-vert) corner-base)))
+ (define (im:square-limit painter n)
+   (let ((corner-base (im:corner-split painter n)))
+     ((im:square-of-four im:flip-horiz identity
+                         im:rotate-180 im:flip-vert) corner-base)))
 #+END_SRC
 
 Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:square-of-four=, diferenciando apenas na quantidade de divisões que são feitas no procedimento devolvido.
@@ -226,33 +234,33 @@ Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:
 *** Utilize!
 
 #+BEGIN_SRC scheme
-(paint ((im:square-of-four
-           (lambda (painter) (im:flip-vert (im:rotate-90 painter)))
-           im:rotate-270
-           im:rotate-90
-           (lambda (painter) (im:flip-vert (im:rotate-270 painter)))) einstein))
+ (paint ((im:square-of-four
+            (lambda (painter) (im:flip-vert (im:rotate-90 painter)))
+            im:rotate-270
+            im:rotate-90
+            (lambda (painter) (im:flip-vert (im:rotate-270 painter)))) einstein))
 #+END_SRC
 
 #+BEGIN_SRC scheme
-(paint ((im:square-of-nine
-           identity identity  im:rotate-270
-           im:rotate-90 (lambda (painter) (im:square-limit einstein 1))  im:rotate-270
-           im:rotate-90  im:rotate-180  im:rotate-180) einstein))
+ (paint ((im:square-of-nine
+            identity identity  im:rotate-270
+            im:rotate-90 (lambda (painter) (im:square-limit einstein 1))  im:rotate-270
+            im:rotate-90  im:rotate-180  im:rotate-180) einstein))
 #+END_SRC
 
 #+BEGIN_SRC scheme
-(paint ((im:square-of-nine
-           identity identity  im:rotate-270
-           im:rotate-90 (lambda (painter) (im:square-limit einstein 1))  im:rotate-270
-           im:rotate-90  im:rotate-180  im:rotate-180) einstein))
+ (paint ((im:square-of-nine
+            identity identity  im:rotate-270
+            im:rotate-90 (lambda (painter) (im:square-limit einstein 1))  im:rotate-270
+            im:rotate-90  im:rotate-180  im:rotate-180) einstein))
 #+END_SRC
 
 #+BEGIN_SRC scheme
-(paint (im:flipped-pairs einstein))
+ (paint (im:flipped-pairs einstein))
 #+END_SRC
 
 #+BEGIN_SRC scheme
-(paint (im:square-limit einstein 3))
+ (paint (im:square-limit einstein 3))
 #+END_SRC
 
 * Avaliação dos integrantes
@@ -264,13 +272,6 @@ Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:
 Acreditamos que Beatriz tenha participado ativamente do projeto. Sempre se mostrou disponível para a realização das tarefas e contribuiu para as discussões acerca do tema que estávamos estudando. Beatriz se dedicou inteiramente ao trabalho e fez o máximo para que este fosse finalizado da melhor maneira possível.
 
 Portanto, acreditamos que Beatriz mereça nota 9,5. Ainda que tenhamos aprendido muito e nos dedicado inteiramente ao trabalho, sempre há o que melhorar e, por ter faltado um exercício para completarmos a seção, o projeto não ficou completo. 
-
-*** Gustavo Cavaliere
-
-Acreditamos que o Gustavo, apesar de ter entrado em um projeto já iniciado, tenha contribuído de maneira proativa. Suas contribuições principais ficaram na parte de elaboração de algumas das funções low-level  e, sobretudo, da organização final do trabalho.
-
-Atribuímos ao Gustavo a nota 9,0. Não pudemos atribuir-lhe nota maior que os demais componentes, que já se encontravam trabalhando no projeto. Atribuímos essa nota também devido ao fato de suas contribuições terem ocorrido majoritariamente nas reuniões e discussões, tendo uma participação menor na composição do repositório, como tinha sido acordado.
-
 
 
 
