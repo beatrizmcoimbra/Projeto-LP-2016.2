@@ -10,7 +10,7 @@ bla bla bla...
 *** Importante:
 - Para utilizar os códigos, é necessário instalar o pacote *sicp*. Link de instalação: git://github.com/sicp-lang/sicp . Após instalado, deve ser utilizado o arquivo [[file:images-manipulator.rkt]], onde encontra-se as funções que serão usadas.
 - As funções implementadas no projeto são precedidas do prefixo =im:=.
-- Um =painter= é =<procedure>= que recebe um =frame= como argumento.
+- Um =painter= é um =<procedure>= que recebe um =frame= como argumento.
 - Para visualizar um =painter=, deve-se utilizar a função =paint=:
 
 #+BEGIN_SRC scheme
