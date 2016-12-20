@@ -1,7 +1,7 @@
 #lang racket
 (require sicp-pict)
 
-; Image Package (im)
+;                                          Image Package (im)
 
 ;; Transformador linear
 
