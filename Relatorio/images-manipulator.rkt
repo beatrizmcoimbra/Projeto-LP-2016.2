@@ -147,6 +147,14 @@
 
 ;; Padrões
 
+(define (im:xadrez-pattern painter) 
+  (let ((pattern
+        (lambda (frame)
+          ((im:shrink-tl painter) frame)
+          ((im:shrink-br painter) frame))))
+    (im:below (im:beside pattern pattern)
+              (im:beside pattern pattern))))
+
 (define (im:right-split painter n)
   (if (= n 0)
       painter
