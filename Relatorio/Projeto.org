@@ -1,0 +1,263 @@
+#+Title: Projeto de Manipulação de Imagens
+#+Author: Alifer Sales, Beatriz Coimbra e Gustavo Cavaliere
+
+Projeto desenvolvido pelos alunos Alifer Sales, Beatriz Coimbra e Gustavo Cavaliere para a disciplina de Linguagens de Programação lecionada pelo professor Alexandre Rademaker no curso de graduação em Matemática Aplicada oferecido pela Escola de Matemática Aplicada da Fundação Getúlio Vargas no segundo semestre de 2016.
+
+* Introdução
+
+bla bla bla...
+
+*** Importante:
+- Para utilizar os códigos, é necessário instalar o pacote *sicp*. Link de instalação: git://github.com/sicp-lang/sicp . Após instalado, deve ser utilizado o arquivo [[file:images-manipulator.rkt]], onde encontra-se as funções que serão usadas.
+- As funções implementadas no projeto são precedidas do prefixo =im:=.
+- Um =painter= é =<procedure>= que recebe um =frame= como argumento.
+- Para visualizar um =painter=, deve-se utilizar a função =paint=:
+
+#+BEGIN_SRC scheme
+(paint painter1 painter2 ...)
+#+END_SRC
+
+* Transformando imagens
+
+** =im:transform-painter=
+- input: =(im:transform-painter painter origin corner1 corner2)=
+- output: =painter=
+
+Esta função é fundamental para o pacote. É através dela que as transformações lineares acontecem. Para utiliza-la, o usuário deve passar um painter e três vetores como argumentos. Os vetores =origin=, =corner1= e =corner2= indicam, respectivamente, onde o ponto inferior esquerdo, o ponto inferior direito e o ponto superior esquerdo do =painter ficará após a transformação.
+
+*** Exemplo:
+
+#+BEGIN_SRC scheme
+(im:transform-painter einstein (make-vect 1.0 0.0) (make-vect 0.0 0.0) (make-vect 1.0 1.0))
+#+END_SRC
+[[file:transform-painter-exemple.png]] 
+
+Envelopando o =im:tranform-painter=, foram criadas algumas transformações elementares:
+
+- =(im:flip-vert painter)= Reflete o painter verticalmente.
+- =(im:flip-horiz painter)= Reflete o painter horizontalmente.
+- =(im:rotate-90 painter)= Rotaciona o painter em 90 graus.
+- =(im:rotate-180 painter)= Rotaciona o painter em 180 graus.
+- =(im:rotate-270 painter)= Rotaciona o painter em 270 graus.
+- =(im:shrink-tl painter)= Encolhe o painter em 1/4, posicionando-o no canto superior esquerdo.
+- =(im:shrink-tr painter)= Encolhe o painter em 1/4, posicionando-o no canto superior direito.
+- =(im:shrink-bl painter)= Encolhe o painter em 1/4, posicionando-o no canto inferior esquerdo.
+- =(im:shrink-br painter)= Encolhe o painter em 1/4, posicionando-o no canto inferior direito.
+
+*** Utilize!
+
+#+BEGIN_SRC scheme
+(paint (im:transform-painter einstein (make-vect 0.2 0.0) (make-vect 0.6 0.0) (make-vect 0.6 0.8)))
+#+END_SRC
+
+#+BEGIN_SRC scheme
+(paint (im:flip-horiz einstein))
+#+END_SRC
+
+#+BEGIN_SRC scheme
+(paint (im:rotate-180 einstein))
+#+END_SRC
+
+#+BEGIN_SRC scheme
+(paint (im:shrink-tr einstein))
+#+END_SRC
+
+#+BEGIN_SRC scheme
+(paint (im:shrink-bl einstein))
+#+END_SRC
+
+* Combinando imagens
+
+As combinações de imagens são realizadas através da criação de um painter a partir da união de diversas transformações.
+
+** =im:beside=
+- input: =(im:beside painter1 painter2)=
+- output: =painter=
+
+Para que fique mais claro, essa seção será abordada através da implementação do combinador =im:beside=
+
+[[file:beside-exemple.png]]
+
+O combinador =beside= recebe dois painter como argumentos, =painter1= e =painter2=, e tem por objetivo coloca-lós lado a lado, espremendo-os horizontalmente. Para isso, basta realizar a união de duas trasformações lineares: 
+- =paint-lef= Que coloca o =painter1= no lado esquerdo do novo painter e 
+- =paint-right= Que coloca o =painter2= no lado direito. 
+Dessa forma, segue o combinador =im:beside=:
+
+#+BEGIN_SRC scheme
+(define (im:beside painter1 painter2)
+  (let ((paint-left
+         (im:transform-painter painter1
+                               (make-vect 0.0 0.0)
+                               (make-vect 0.5 0.0)
+                               (make-vect 0.0 1.0)))
+        (paint-right
+         (im:transform-painter painter2
+                               (make-vect 0.5 0.0)
+                               (make-vect 1.0 0.0)
+                               (make-vect 0.5 1.0))))
+    (lambda (frame)
+      (paint-left frame)
+      (paint-right frame))))
+#+END_SRC
+
+Com a mesma lógica, são implementados mais combinadores:
+
+- =(im:beside3 painter1 painter2 painter3)= Combina 3 painters, colocando-as uma do lado da outro.
+- =(im:below painter1 painter2)= Combina 2 painters, colocando-os um encima do outro.
+- =(im:below3 painter1 painter2 painter3)= Combina 3 painters, colocando-os um encima do outro.
+
+*** Utilize!
+
+#+BEGIN_SRC scheme
+(paint (lambda (frame)
+           ((im:shrink-br einstein) frame)
+           ((im:shrink-tl einstein) frame)))
+#+END_SRC
+
+#+BEGIN_SRC scheme
+(paint (im:below3 einstein
+                  (im:rotate-90 einstein)
+                  (im:rotate-180 einstein)))
+#+END_SRC
+
+* Padrões
+
+A base do pacote já está pronta. Ao combinar os transformadores e os combinadores, é possível criar alguns padrões de imagens.
+
+** =im:right-split=
+- input: =(im:beside painter1 painter2)=
+- output: =painter=
+
+A função =im:right-split= produz um padrão de forma recursiva. A ideia é utilizar o =im:below= dentro do =im:beside=, produzindo padrões como na imagem abaixo, onde o segundo elemento é a quantidade de recursões que ocorrerem:
+
+#+BEGIN_SRC scheme
+(paint (im:right-split einstein 2))
+#+END_SRC
+[[file:right-split-exemple.PNG]]
+
+Confira a implementação:
+
+#+BEGIN_SRC scheme
+(define (im:right-split painter n)
+  (if (= n 0)
+      painter
+      (let ((smaller (im:right-split painter (- n 1))))
+        (im:beside painter (im:below smaller smaller)))))
+#+END_SRC
+
+Análogamente, é possível construir um padrão parecido, chamado =im:up-split=:
+
+#+BEGIN_SRC scheme
+(paint (im:up-split einstein 2))
+#+END_SRC
+[[file:up-split-exemple.PNG]]
+
+Com esses dois padrões, pode-se ir mais além com o =im:corner-split=. Veja a sua implementação e um exemplo:
+
+#+BEGIN_SRC scheme
+(define (im:corner-split painter n)
+  (if (= n 0)
+      painter
+      (let ((up (im:up-split painter (- n 1)))
+            (right (im:right-split painter (- n 1))))
+        (let ((top-left (im:beside up up))
+              (bottom-right (im:below right right))
+              (corner (im:corner-split painter (- n 1))))
+          (im:beside (im:below painter top-left)
+                     (im:below bottom-right corner))))))
+#+END_SRC
+
+#+BEGIN_SRC scheme
+(paint (im:corner-split einstein 2))
+#+END_SRC
+[[file:corner-split-exemple.PNG]]
+
+** =im:square-of-four=
+- input: =(im:square-of-four tl tr bl br)=
+- output: =<procedure>= que recebe um =painter= como argumento.
+
+O =im:square-of-four= é uma função high-order recebe quatro operações (tl, tr, bl, br) e devolve um procedimento que compõe um quadro com quatro imagens alocadas nos seus quatro cantos. 
+
+Ao utilizar tal procedimento, deve ser passado um =painter= para então ser produzido um outro =painter=, onde:
+
+- o canto superior esquerdo será a operação =tl= aplicada ao painter;
+- o canto superior direito será a operação =tr= aplicada ao painter;
+- o canto inferior esquerdo será a operação =bl= aplicada ao painter;
+- e o canto inferior direito será a operação =br= aplicada ao painter.
+
+A ideia é produzir um quadro dividido em quatro cantos iguais, onde é possível aplicar funções diferentes para cada canto. Por exemplo, suponha que um usuário queira produzir uma imagem, onde:
+
+- O canto superior esquerdo, =tl=, é o painter =einstein=;
+- O canto superior direito, =tr=, é o =im:flip-horiz= do =einstein=;
+- O canto inferior esquerdo, =bl=, é o =im:flip-vert= do =einstein=;
+- E o canto inferior direito, =br=, é o =im:rotate-189= do =einstein=.
+
+Para isso, ele pode utilizar o =im:square-of-four= da seguinte forma:
+
+#+BEGIN_SRC scheme
+(paint ((im:square-of-four identity im:flip-horiz
+                           im:flip-vert im:rotate-180) einstein))
+#+END_SRC
+[[file:square-of-four-exemple.PNG]]
+
+Envolopando o =im:square-of-four=, é possível chegar em alguns padrões interessantes:
+
+#+BEGIN_SRC scheme
+(define (im:flipped-pairs painter)
+  ((im:square-of-four identity im:flip-vert
+                      identity im:flip-vert) painter))
+#+END_SRC
+
+#+BEGIN_SRC scheme
+(define (im:square-limit painter n)
+  (let ((corner-base (im:corner-split painter n)))
+    ((im:square-of-four im:flip-horiz identity
+                        im:rotate-180 im:flip-vert) corner-base)))
+#+END_SRC
+
+Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:square-of-four=, diferenciando apenas na quantidade de divisões que são feitas no procedimento devolvido.
+
+- input: =(im:square-of-nine tl tc tr ml mc mr bl bc br)=
+[[file:square-of-nine-grade.PNG]]
+
+*** Utilize!
+
+#+BEGIN_SRC scheme
+(paint ((im:square-of-four
+           (lambda (painter) (im:flip-vert (im:rotate-90 painter)))
+           im:rotate-270
+           im:rotate-90
+           (lambda (painter) (im:flip-vert (im:rotate-270 painter)))) einstein))
+#+END_SRC
+
+#+BEGIN_SRC scheme
+(paint ((im:square-of-nine
+           identity identity  im:rotate-270
+           im:rotate-90 (lambda (painter) (im:square-limit einstein 1))  im:rotate-270
+           im:rotate-90  im:rotate-180  im:rotate-180) einstein))
+#+END_SRC
+
+#+BEGIN_SRC scheme
+(paint ((im:square-of-nine
+           identity identity  im:rotate-270
+           im:rotate-90 (lambda (painter) (im:square-limit einstein 1))  im:rotate-270
+           im:rotate-90  im:rotate-180  im:rotate-180) einstein))
+#+END_SRC
+
+#+BEGIN_SRC scheme
+(paint (im:flipped-pairs einstein))
+#+END_SRC
+
+#+BEGIN_SRC scheme
+(paint (im:square-limit einstein 3))
+#+END_SRC
+
+
+
+
+
+
+
+
+
+
