@@ -1,5 +1,5 @@
-#lang racket
-(require sicp-pict)
+#lang sicp
+(#%require sicp-pict)
 
 ;                                          Image Package (im)
 
@@ -185,7 +185,7 @@
         (lambda (frame)
           ((im:shrink-tl next) frame)
           ((im:shrink-tr next) frame)
-          ((im:shrink-bl netx) frame)
+          ((im:shrink-bl next) frame)
           ((im:shrink-br next) frame)))))
 
 (define (im:square-of-four tl tr
