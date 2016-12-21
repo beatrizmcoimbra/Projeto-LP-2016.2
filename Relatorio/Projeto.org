@@ -308,11 +308,8 @@ Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:
 #+END_SRC
 
 #+BEGIN_SRC scheme
- (paint ((im:square-of-four
-            im:xadrez-pattern
-            im:xadrez-pattern
-            im:xadrez-pattern
-            im:xadrez-pattern) einstein))
+ (paint ((im:square-of-four im:xadrez-pattern im:xadrez-pattern
+                            im:xadrez-pattern im:xadrez-pattern) einstein))
 #+END_SRC
 
 #+BEGIN_SRC scheme
