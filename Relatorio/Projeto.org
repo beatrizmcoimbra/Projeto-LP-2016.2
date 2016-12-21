@@ -9,9 +9,9 @@ Nosso trabalho consistiu no estudo e na implementação de um pacote de manipula
 
 Essa seção apresenta uma linguagem de representação e manipulação de imagens, ilustrando o poder da abstração – assunto muito abordado ao longo do livro. A base do pacote são transformações e combinações de imagens, colocando na prática uma poderosa ferramenta da Álgebra Linear: As transformações lineares. 
 
-O objetivo deste relatório não é reexplicar os conceitos que o livro traz. Sempre de forma objetiva, será abordado, num primeiro momento, (I) o que foi feito durante o projeto. Num segundo momento, (II) é criado uma espécie de "tutorial" que guia a utilização do pacote. E por fim, (III) o que ainda pode ser feito no futuro para o aperfeiçoamento do pacote e (IV) a avaliação dos integrantes.
+O objetivo deste relatório não é reexplicar os conceitos que o livro traz. Sempre de forma objetiva, será abordado, num primeiro momento, (1) o que foi feito durante o projeto. Num segundo momento, (2) é criado uma espécie de "tutorial" que guia a utilização do pacote. E por fim, (3) o que ainda pode ser feito no futuro para o aperfeiçoamento do pacote e (4) a avaliação dos integrantes.
 
-* I. Implementações
+* 1. Implementações
 
 Ao tratar do tema, o livro realiza diversas implementações de códigos. Mas o objetivo do projeto não era apenas reproduzir os códigos do livro, mas também, implementar novas funções, seja induzido pelos exercícios, seja por conta própria. 
 
@@ -19,7 +19,7 @@ Ao tratar do tema, o livro realiza diversas implementações de códigos. Mas o 
 
 Dessa forma, seguem todas as funções implementadas:
 
-*** Implementações do livro
+**1.1 Implementações do livro
 - =im:transform-painter= Realiza a trasformação linear desejada.
 - =im:flip-vert= Reflete a imagem verticalmente.
 - =im:rotate-90= Rotaciona a imagem em 90 graus.
@@ -31,7 +31,7 @@ Dessa forma, seguem todas as funções implementadas:
 - =im:square-limit= Mosaico com um padrão de imagens.
 
 
-*** Implementações propostas através dos exercícios
+**1.2 Implementações propostas através dos exercícios
 - =im:flip-horiz= Reflete a imagem horizontalmente.
 - =im:rotate-180= Rotaciona a imagem em 180 graus.
 - =im:rotate-270= Rotaciona a imagem em 270 graus.
@@ -39,7 +39,7 @@ Dessa forma, seguem todas as funções implementadas:
 - =im:up-split= produz repetições exponenciais da imagem passada, inserindo tais repetições por cima.
 - Abstrações: [[https://github.com/beatrizmcoimbra/Projeto-LP-2016.2/blob/master/%5BABSTRACTION%5D%20vectors.rkt][Vetores]], [[https://github.com/beatrizmcoimbra/Projeto-LP-2016.2/blob/master/%5BABSTRACTION%5D%20frames.rkt][Frames]] e [[https://github.com/beatrizmcoimbra/Projeto-LP-2016.2/blob/master/%5BABSTRACTION%5D%20segments.rkt][Segmentos]]
 
-*** Implementações por conta própria
+**1.3 Implementações por conta própria
 - =im:shrink-tl= Encolhe a imagem em 1/4, posicionando-a no canto superior esquerdo.
 - =im:shrink-tr= Encolhe a imagem em 1/4, posicionando-a no canto superior direito.
 - =im:shrink-bl= Encolhe a imagem em 1/4, posicionando-a no canto inferior esquerdo.
@@ -50,7 +50,7 @@ Dessa forma, seguem todas as funções implementadas:
 - =im:square-pattern= Cria uma malha quadriculada com a imagem passada.
 - =im:square-of-nine= High-order que possibilita a geração de padrões.
 
-* II. Como utilizar o pacote?
+* 2. Como utilizar o pacote?
 
 *** Importante:
 - Para utilizar os códigos, é necessário instalar o pacote *sicp-pict*. Link de instalação: git://github.com/sicp-lang/sicp . Após instalado, deve ser utilizado o arquivo [[file:images-manipulator.rkt]], onde encontram-se as funções que serão usadas.
@@ -70,9 +70,9 @@ Dessa forma, seguem todas as funções implementadas:
 #+END_SRC
 
 
-** Transformando imagens
+** 2.1 Transformando imagens
 
-*** =im:transform-painter=
+*** 2.1.1 =im:transform-painter=
 - input: =(im:transform-painter painter origin corner1 corner2)=
 - output: =painter=
 
@@ -97,7 +97,7 @@ Envelopando o =im:tranform-painter=, foram criadas algumas transformações elem
 - =(im:shrink-bl painter)= Encolhe o painter em 1/4, posicionando-o no canto inferior esquerdo.
 - =(im:shrink-br painter)= Encolhe o painter em 1/4, posicionando-o no canto inferior direito.
 
-*** Utilize!
+*** 2.1.2 Utilize!
 
 #+BEGIN_SRC scheme
  (paint (im:transform-painter einstein (make-vect 0.2 0.0) (make-vect 0.6 0.0) (make-vect 0.6 0.8)))
@@ -119,11 +119,11 @@ Envelopando o =im:tranform-painter=, foram criadas algumas transformações elem
  (paint (im:shrink-bl einstein))
 #+END_SRC
 
-** Combinando imagens
+** 2.2 Combinando imagens
 
 As combinações de imagens são realizadas através da criação de um painter a partir da união de diversas transformações.
 
-*** =im:beside=
+*** 2.2.1 =im:beside=
 - input: =(im:beside painter1 painter2)=
 - output: =painter=
 
@@ -159,7 +159,7 @@ Com a mesma lógica, são implementados mais combinadores:
 - =(im:below painter1 painter2)= Combina 2 painters, colocando-os um encima do outro.
 - =(im:below3 painter1 painter2 painter3)= Combina 3 painters, colocando-os um encima do outro.
 
-*** Utilize!
+*** 2.2.2 Utilize!
 
 #+BEGIN_SRC scheme
  (paint (lambda (frame)
@@ -173,7 +173,7 @@ Com a mesma lógica, são implementados mais combinadores:
                    (im:rotate-180 einstein)))
 #+END_SRC
 
-** Padrões
+** 2.3 Padrões
 
 A base do pacote já está pronta. Ao combinar os transformadores e os combinadores, é possível criar alguns padrões de imagens. Como, por exemplo, o =im:xadrez-pattern=:
 
@@ -187,7 +187,7 @@ A base do pacote já está pronta. Ao combinar os transformadores e os combinado
                (im:beside pattern pattern))))
 #+END_SRC
 
-*** =im:right-split=
+*** 2.3.1 =im:right-split=
 - input: =(im:beside painter1 painter2)=
 - output: =painter=
 
@@ -237,7 +237,7 @@ Com esses dois padrões, pode-se ir mais além com o =im:corner-split=. Veja a s
 #+END_SRC
 [[file:corner-split-exemple.PNG]]
 
-*** =im:square-pattern=
+*** 2.3.2 =im:square-pattern=
 - input: =(im:square-pattern painter n)=
 - output: =painter=.
 
@@ -253,7 +253,7 @@ Ainda se tratando em padrões recursirvos, a função =im:square-pattern= permit
 #+END_SRC
 [[file:square-pattern-3.PNG]]
 
-*** =im:square-of-four=
+*** 2.3.3 =im:square-of-four=
 - input: =(im:square-of-four tl tr bl br)=
 - output: =<procedure>= que recebe um =painter= como argumento.
 
@@ -301,7 +301,7 @@ Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:
 - input: =(im:square-of-nine tl tc tr ml mc mr bl bc br)=
 [[file:square-of-nine-grade.PNG]]
 
-*** Utilize!
+*** 2.3.4 Utilize!
 
 #+BEGIN_SRC scheme
  (paint (im:xadrez-pattern einstein))
@@ -346,25 +346,38 @@ Análogamente, há também o =im:square-of-nine=. Ele é bem parecido com o =im:
 #+END_SRC
 
 
-* III. Próximos passos
+* 3. Próximos passos
 
 Para facilitar a visualização dos outputs dos nossos códigos, recorremos ao pacote sicp-pict, que nos permite manipular imagens mais facilmente. Tal pacote possui certas imagens pré-definidas para serem manipuladas – uma foto do cientista Albert Einstein e um “degradê” cinza. Uma avanço ideal para o projeto é possibilitar que o usário tenha a liberdade de inserir imagens à escolha dele para que essas sejam manipuladas no pacote. Infelizmente não pudemos focar nisso ainda, mas existe a pretensão de conseguir tal implementação no futuro.
 
 Outro avanço interessante é permitir que o usuário possa escolher a dimensão da imagem que a função =paint= retorna. Atualmente esse tamanho é fixo, o que impossibilita a visualição detalhada de algumas transformações e combinações. Isto é, portanto, mais uma implementação futura do projeto.
 
-*IV. Avaliação dos integrantes
+* 4. Avaliação dos integrantes
 
 *** Alifer Sales
 
+O Alifer atuou ativamente durante todo o projeto. Desde a concepção, onde contribuiu bastante no alinhamento dos objetivos com as expectativas, sua importância se fez notória no desenvolvimento das implementações. Além das propostas que o livro trouxe, ele teve participação crucial nos códigos que o grupo resolveu implementar por conta própria. Vale destacar seu empenho na produção do relatório final e no dissernimento pós-projeto, onde o grupo definiu os objetivos alcançados e as melhorias que poderão ser implementadas no futuro.
+
+Dessa forma, o grupo avalia o trabalho do Alifer em 9,8. Mesmo que o grupo esteja totalmente satisfeito com o produto final do projeto, não se pôde ignorar o fato de que há coisas que podem deixar o pacote mais completo, como a liberdade que poderia ser proporcionada aos usuários, caso os pontos do Capítulo 3 fossem amplamente implementados. 
+
 *** Beatriz Coimbra
 
-Acreditamos que Beatriz tenha participado ativamente do projeto. Sempre se mostrou disponível para a realização das tarefas e contribuiu para as discussões acerca do tema que estávamos estudando. Beatriz se dedicou inteiramente ao trabalho e fez o máximo para que este fosse finalizado da melhor maneira possível.
+A Beatriz participou ativamente do projeto. Sempre disponível para a realização das tarefas, contribuiu bastante para as inúmeras discussões que aconteceram durante o projeto. Ela se dedicou inteiramente ao trabalho e fez o máximo para que este fosse finalizado da melhor maneira possível.
 
-Portanto, acreditamos que Beatriz mereça nota 9,5. Ainda que tenhamos aprendido muito e nos dedicado inteiramente ao trabalho, sempre há o que melhorar e, por ter faltado um exercício para completarmos a seção, o projeto não ficou completo. 
+Portanto, o grupo avalia em 9,5 a contribuição da Beatriz. Em suas palavras: "Ainda que tenhamos aprendido muito e nos dedicado inteiramente ao trabalho, sempre há o que melhorar e como não concluímos um dos objetivos iniciais, que era permitir ao usuário inserir imagens livremente, é justa a nota atribuida." 
 
 *** Gustavo Cavaliere
 
-Acreditamos que o Gustavo, apesar de ter entrado em um projeto já iniciado, tenha contribuído de maneira proativa. Suas contribuições principais ficaram na parte de elaboração de algumas das funções low-level  e, sobretudo, da organização final do trabalho.
+Apesar de ter entrado com o projeto já iniciado, o Gustavo contribuiu de maneira proativa para tal. Suas contribuições principais foram na parte de elaboração de algumas funções low-level  e, sobretudo, na organização final do trabalho.
 
-Atribuímos ao Gustavo a nota 9,0. Não pudemos atribuir-lhe nota maior que os demais componentes, que já se encontravam trabalhando no projeto. Atribuímos essa nota também devido ao fato de suas contribuições terem ocorrido majoritariamente nas reuniões e discussões, tendo uma participação menor na composição do repositório.
+O grupo avalia o Gustavo com a nota 9,0. A decisão foi tomada pois, além dele ter entrado no meio do projeto, suas contribuições ocorreram majoritariamente nas reuniões e discussões, tendo uma participação menor na composição do repositório. Ressaltamos, contudo, que tais contribuições foram essenciais para o produto final entregue aqui.
 
+* Conclusão
+
+Durante os dois meses que se seguiram, desde o início do projeto, tivemos um ganho em aprendizado exponencial. Percebemos o quanto os conceitos básicos, aprendidos até então, são importantes para implementações de funções mais complexas. 
+
+O que encaramos como desafio no início, agora vemos, com orgulho, como superação e aprendizado. É gratificante ver as funções funcionando e as imagens formando padrões que não havíamos seque imaginado. 
+
+Assim, concluímos o que chamamos de "estágio 1" do projeto. Alimentamos a expectativa de aperfeiçoar o pacote no futuro e esperamos que ele possa contribuir para o aprendizado de outras pessoas.
+
+Alifer, Beatriz e Gustavo.
